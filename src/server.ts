@@ -177,7 +177,7 @@ app.get("/recupera-credito-estabelecimento/:usuarioID", async (req, res) => {
     const retorno = await GETEstabelecimento(client, usuarioID)
 
     if (retorno?.isSucesso) {
-        res.send({ Sucesso: retorno.isSucesso, EstabCredito: retorno.retornoEstab.EstabelecimentoCreditoQuantidade })
+        res.send({ Sucesso: retorno.isSucesso, EstabCredito: retorno.retornoEstab.EstabelecimentoCreditoQuantidade, EstabInfo: retorno.retornoEstab})
     } else {
         res.send({ msg: "Deu ruim" })
     }
