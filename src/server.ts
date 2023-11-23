@@ -42,6 +42,11 @@ import { DELUsuario } from "../Procedures/Deletes/DELUsuario";
 import { PUTUsuarioStatusRegistro } from "../Procedures/PUTs/PUTUsuarioStatusRegistro";
 import { GETListaParceiroTransacoes } from "../Procedures/GETs/GETParceirosTransacoes";
 import { GETListaEstabelecimentosTransacoes } from "../Procedures/GETs/GETPEstabelecimentosTransacoes";
+import { GETParceirosSistema } from "../Procedures/GETs/GETParceirosSistema";
+import { GETEstabelecimentosSistema } from "../Procedures/GETs/GETEstabelecimentosSistema";
+import { GETTopParceiro } from "../Procedures/GETs/GETTopParceiros";
+import { GETParceiroPorEstado } from "../Procedures/GETs/GETParceiroPorEstado";
+import { GETEstabelecimentoPorEstado } from "../Procedures/GETs/GETEstabelecimentoPorEstado";
 
 dotenv.config()
 
@@ -640,6 +645,62 @@ app.get("/GETListaParceirosTransacoes", async (req, res) => {
       res.status(500).json({ error: 'Erro ao obter transações de estabe' });
     }
   });
+
+app.get("/GETParceirosSistema", async (req, res) => {
+
+    await GETParceirosSistema(client)
+        .then(parceiroQuantidade => {
+            // console.log('Historico parceiro e estab   '+ ParceiroEmpresaExtrato)
+
+            res.send({ msg: 'GET com sucesso', parceiroQuantidade: parceiroQuantidade })
+        })
+        .catch(error => console.error('Erro ao obter o extrato do parc empresa:', error));
+})
+
+
+app.get("/GETEstabelecimentosSistema", async (req, res) => {
+
+    await GETEstabelecimentosSistema(client)
+        .then(estabelecimentoQuantidade => {
+            // console.log('Historico parceiro e estab   '+ ParceiroEmpresaExtrato)
+
+            res.send({ msg: 'GET com sucesso', estabelecimentoQuantidade: estabelecimentoQuantidade })
+        })
+        .catch(error => console.error('Erro ao obter o extrato do parc empresa:', error));
+})
+
+app.get("/GETTopParceiro", async (req, res) => {
+
+    await GETTopParceiro(client)
+        .then(topParceiros => {
+            // console.log('Historico parceiro e estab   '+ ParceiroEmpresaExtrato)
+
+            res.send({ msg: 'GET com sucesso', topParceiros: JSON.stringify(topParceiros) })
+        })
+        .catch(error => console.error('Erro ao obter o extrato do parc empresa:', error));
+})
+
+app.get("/GETParceiroPorEstado", async (req, res) => {
+
+    await GETParceiroPorEstado(client)
+        .then(parceiros => {
+            // console.log('Historico parceiro e estab   '+ ParceiroEmpresaExtrato)
+
+            res.send({ msg: 'GET com sucesso', parceiros: JSON.stringify(parceiros) })
+        })
+        .catch(error => console.error('Erro ao obter o extrato do parc empresa:', error));
+})
+
+app.get("/GETEstabelecimentoPorEstado", async (req, res) => {
+
+    await GETEstabelecimentoPorEstado(client)
+        .then(estabelecimentos => {
+            // console.log('Historico parceiro e estab   '+ ParceiroEmpresaExtrato)
+
+            res.send({ msg: 'GET com sucesso', estabelecimentos: JSON.stringify(estabelecimentos) })
+        })
+        .catch(error => console.error('Erro ao obter o extrato do parc empresa:', error));
+})
 
 app.listen(3001, () => {
     console.log("Servidor rodando!")
