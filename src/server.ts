@@ -45,20 +45,20 @@ import { GETListaEstabelecimentosTransacoes } from "../Procedures/GETs/GETPEstab
 
 dotenv.config()
 
-const client = new Pool({
-    user: "postgres",
-    host: "localhost",
-    database: "API - 4Desk",    //trocar para o nome do seu banco local
-    password: "123",      //trocar para a senha do seu banco local
-    port: 5432
-})
-
-// const client = new Pool({ //conexão com o banco do servidor
-//     connectionString: process.env.URLCloud, 
-//     ssl: {
-//         rejectUnauthorized: false
-//     }
+// const client = new Pool({
+//     user: "postgres",
+//     host: "localhost",
+//     database: "API - 4Desk",    //trocar para o nome do seu banco local
+//     password: "123",      //trocar para a senha do seu banco local
+//     port: 5432
 // })
+
+const client = new Pool({ //conexão com o banco do servidor
+    connectionString: process.env.URLCloud, 
+    ssl: {
+        rejectUnauthorized: false
+    }
+})
 
 client.connect((err) => {
     if (err) {
